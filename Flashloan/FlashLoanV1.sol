@@ -50,6 +50,7 @@ contract FlashLoanV1 {
     }
 
     function flashloanExecution(uint _usdcAmount /*, bytes calldata _data */) external locker {
+	require(msg.sender.code.length > 0, "Caller must be a SCA");
         uint poolBalanceBefore = USDC.balanceOf(address(this));
         require(_usdcAmount <= poolBalanceBefore, "Pool insufficient balance.");
 
